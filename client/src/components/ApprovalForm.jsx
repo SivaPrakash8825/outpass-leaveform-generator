@@ -3,7 +3,9 @@ import rejectImg from "../image/rejectImg.png";
 
 import { useState } from "react";
 
-export default function ApprovalForm() {
+export default function ApprovalForm(props) {
+  const { data } = props;
+  // console.log(data);
   const [isAccept, toggleAccept] = useState(true);
 
   return (
@@ -14,9 +16,9 @@ export default function ApprovalForm() {
         </div>
 
         <img
-          src={isAccept ? acceptImg : rejectImg}
+          src={data.isAccept ? acceptImg : rejectImg}
           className={` mx-auto mt-2  h-28 w-28 rounded-full ${
-            isAccept ? "bg-green-200" : "bg-red-200"
+            data.isAccept ? "bg-green-200" : "bg-red-200"
           }`}
           alt=""
         />
@@ -27,7 +29,7 @@ export default function ApprovalForm() {
             <span className="absolute right-0">:</span>
           </div>
           <h1 className=" borde w-full border-white text-[1.1rem] font-semibold text-white">
-            Jeyadheesh
+            {data.name}
           </h1>
         </div>
 
@@ -37,7 +39,7 @@ export default function ApprovalForm() {
             <span className="absolute right-0">:</span>
           </div>
           <h1 className=" borde w-full border-white text-[1.1rem] font-semibold text-white">
-            920421uad037
+            {data.rollno}
           </h1>
         </div>
 
@@ -47,7 +49,7 @@ export default function ApprovalForm() {
             <span className="absolute right-0">:</span>
           </div>
           <h1 className=" borde w-full border-white text-[1.1rem] font-semibold  text-white">
-            Computer Science Department
+            {data.department}
           </h1>
         </div>
 
@@ -59,13 +61,13 @@ export default function ApprovalForm() {
           <div>
             <div className="borde relative  my-auto block w-full border-white  text-[1.1rem] font-semibold text-teal-300">
               <h1>
-                from : <span className="text-white">12/03/201</span>
+                From : <span className="text-white">{data.dateFrom}</span>
               </h1>
             </div>
 
             <div className=" borde w-full border-white text-[1.1rem] font-semibold text-teal-300">
               <h1>
-                to : <span className="text-white">12/03/201</span>
+                to : <span className="text-white">{data.dateTo}</span>
               </h1>
             </div>
           </div>
@@ -79,13 +81,13 @@ export default function ApprovalForm() {
           <div>
             <div className="borde relative  my-auto block w-full border-white  text-[1.1rem] font-semibold text-teal-300">
               <h1>
-                from : <span className="text-white">07:00:00</span>
+                From : <span className="text-white">{data.timeFrom}</span>
               </h1>
             </div>
 
             <div className=" borde w-full border-white text-[1.1rem] font-semibold text-teal-300">
               <h1>
-                to : <span className="text-white">07:00:00</span>
+                To : <span className="text-white">{data.timeTo}</span>
               </h1>
             </div>
           </div>
@@ -98,10 +100,10 @@ export default function ApprovalForm() {
           </div>
           <h1
             className={`borde mx-auto w-fit rounded-lg border-white bg-[rgb(64,180,64)] p-1 px-2 text-3xl   font-bold text-white ${
-              isAccept ? "bg-[rgb(64,180,64)]" : "bg-red-500"
+              data.isAccept ? "bg-[rgb(64,180,64)]" : "bg-red-500"
             }`}
           >
-            {isAccept ? "Accepted" : "Rejected"}
+            {data.isAccept ? "Accepted" : "Rejected"}
           </h1>
         </div>
 
