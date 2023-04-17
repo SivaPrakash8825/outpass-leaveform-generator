@@ -4,7 +4,7 @@ import rejectImg from "../image/rejectImg.png";
 import { useState } from "react";
 
 export default function ApprovalForm() {
-  const [isAccept, toggleAccept] = useState(true);
+  const [isAccept, toggleAccept] = useState(false);
 
   return (
     <section className="bg-gradien-to-br relative flex  h-screen w-screen items-center justify-center bg-sbgImg from-gray-700 to-gray-900   bg-cover bg-no-repeat p-5 md:bg-mbgImg lg:bg-bbgImg">
@@ -99,8 +99,7 @@ export default function ApprovalForm() {
           <h1
             className={`borde mx-auto w-fit rounded-lg border-white bg-[rgb(64,180,64)] p-1 px-2 text-3xl   font-bold text-white ${
               isAccept ? "bg-[rgb(64,180,64)]" : "bg-red-500"
-            }`}
-          >
+            }`}>
             {isAccept ? "Accepted" : "Rejected"}
           </h1>
         </div>

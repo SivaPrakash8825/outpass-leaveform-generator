@@ -1,12 +1,31 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import Selectperson from "..";
+
 import Navbar from "./loginnav";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Loginpage() {
+  const history = useNavigate();
   const [person, setperson] = useState("student");
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
   function SelectPerson(val) {
     setperson(val);
+  }
+  async function submit() {
+    const res = await axios.post(
+      `http://localhost:3030/login/${person}`,
+      {
+        email: email,
+        password: password,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+    if (res.data == "Exist") {
+      history(`${person}/`);
+    }
   }
   return (
     <>
@@ -21,6 +40,10 @@ export default function Loginpage() {
             <input
               type="text"
               id="mail"
+              value={email}
+              onChange={(e) => {
+                setemail(e.target.value);
+              }}
               className="w-[100%] outline-none bg-transparent text-white px-1 border-b-2 border-[white] focus:border-emerald-600 peer"
               required
             />
@@ -34,6 +57,10 @@ export default function Loginpage() {
             <input
               type="password"
               id="pass"
+              value={password}
+              onChange={(e) => {
+                setpassword(e.target.value);
+              }}
               className="w-[100%] text-white border-[white] focus:border-emerald-600 outline-none bg-transparent px-1 border-b-2 peer"
               required
             />
@@ -44,11 +71,13 @@ export default function Loginpage() {
             </label>
           </div>
           <div className=" text-center mt-[40px] active:shadow-xl active:scale-[1.2] ">
-            <Link
-              to={`/${person}`}
+            <button
+              onClick={() => {
+                submit();
+              }}
               className="rounded-2xl pl-[20px] pt-[7px] pb-[7px] pr-[20px] bg-green-700 hover:bg-green-600  transition-all w-40">
               login
-            </Link>
+            </button>
           </div>
           <h1 className="text-white"></h1>
         </div>

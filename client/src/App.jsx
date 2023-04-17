@@ -1,12 +1,26 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 
 import Selectperson from "./index";
 
 import Stdhome from "./stdhome";
 import Wardenpage from "./wardenpage";
+import { useEffect } from "react";
+import axios from "axios";
 
 function App() {
+  const history = useNavigate();
+  useEffect(() => {
+    async function render() {
+      const val = await axios.get("http://localhost:3030/login/cookdata", {
+        withCredentials: true,
+      });
+      if (val.data !== "notexist") {
+        history(`${val.data}/`);
+      }
+    }
+    render();
+  });
   return (
     <>
       <Routes>

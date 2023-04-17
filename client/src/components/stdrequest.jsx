@@ -3,9 +3,9 @@ export default function StdRequest() {
     <>
       <div className="w-[100%] flex justify-center" id="requests">
         <div className="w-[80%] p-[20px] bg-[rgba(0,0,0,0.1)] rounded-[12px] mt-10 sm:w-[63%]">
-          <div className="w-[100%]  flex items-center mt-10 sm:w-[63%]">
-            <div className="min-w-[100px] min-h-[100px] sm:min-w-[150px] sm:h-[150px] bg-cover bg-center bg-no-repeat bg-studentimg"></div>
-            <div className="w-[calc(100%-120px-90px)] flex ml-[20px] flex-col md:ml-[20px] sm:ml-[20px]">
+          <div className="w-[100%]  flex items-center mt-10 sm:w-[100%]">
+            <div className="min-w-[100px]  min-h-[100px] sm:min-w-[150px] sm:h-[150px] bg-cover bg-center bg-no-repeat bg-studentimg"></div>
+            <div className="w-[100%]  flex ml-[20px] flex-col md:ml-[20px] sm:ml-[20px]">
               <div className="flex">
                 <span>from:</span>
                 <p>kamaraj college</p>
@@ -31,7 +31,7 @@ export default function StdRequest() {
                 <p>45678987</p>
               </div>
               <div className="flex flex-wrap mt-[10px]">
-                <span>reason:</span>
+                <span className=" font-bold underline">reason:</span>
                 <p>
                   I'm going to kovilpatti.so, I need a one day leave on
                   (dd/mm/yyyy)
