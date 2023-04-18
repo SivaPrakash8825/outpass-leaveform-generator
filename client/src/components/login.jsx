@@ -6,25 +6,49 @@ import axios from "axios";
 
 export default function Loginpage() {
   const history = useNavigate();
+
+  const [err, seterr] = useState({ error: false, errormsg: "" });
   const [person, setperson] = useState("student");
+  const [orginalrole, setorginalrole] = useState("student");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   function SelectPerson(val) {
-    setperson(val);
+    if (val == "student") setperson(val);
+    else {
+      setperson("staff");
+    }
+    setorginalrole(val);
   }
   async function submit() {
-    const res = await axios.post(
-      `http://localhost:3030/login/${person}`,
-      {
-        email: email,
-        password: password,
-      },
-      {
-        withCredentials: true,
+    if (email == "" || password == "") {
+      seterr({ error: true, errormsg: "Fill the email or password" });
+      setTimeout(() => {
+        seterr({ error: false, errormsg: "" });
+      }, 2000);
+    } else {
+      const res = await axios.post(
+        `http://localhost:3030/login/${person}`,
+        {
+          role: `${orginalrole}`,
+          email: email,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.data == "Exist") {
+        seterr({ error: true, errormsg: "login successfully" });
+        setTimeout(() => {
+          seterr({ error: false, errormsg: "" });
+          history(`${orginalrole}/`);
+        }, 2000);
+      } else {
+        seterr({ error: true, errormsg: "Incorrect email or password" });
+        setTimeout(() => {
+          seterr({ error: false, errormsg: "" });
+        }, 2000);
       }
-    );
-    if (res.data == "Exist") {
-      history(`${person}/`);
     }
   }
   return (
@@ -34,7 +58,7 @@ export default function Loginpage() {
         <div className="w-[400px] h-100 loginanim  relative p-5 bg-[rgba(0,0,0,0.5)] flex flex-col items-center rounded-2xl">
           <div className=" w-[70px] h-[70px] rounded-full bg-no-repeat bg-cover absolute bg-studentimg bg-slate-100 top-[-45px]"></div>
           <div className="w-full text-center py-2 font-bold text-4xl">
-            <h2 className="text-[white] capitalize">{person} login</h2>
+            <h2 className="text-[white] capitalize">{orginalrole} login</h2>
           </div>
           <div className="w-[80%] relative mt-[30px]">
             <input
@@ -79,7 +103,7 @@ export default function Loginpage() {
               login
             </button>
           </div>
-          <h1 className="text-white"></h1>
+          {err && <h1 className="text-white">{err.errormsg}</h1>}
         </div>
       </div>
     </>

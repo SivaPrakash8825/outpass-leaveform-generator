@@ -4,9 +4,8 @@ const router = express.Router();
 const login = require("../validation/login");
 
 router.post("/student", login.studentlog);
-router.post("/warden", login.wardenlog);
-router.post("/clerk", login.clerklog);
-router.post("/security", login.sercuritylog);
+router.post("/staff", login.stafflog);
+
 router.get("/cookdata", login.cookdata);
 router.delete("/logout", login.logout);
 

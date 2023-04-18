@@ -3,20 +3,20 @@ import rejectImg from "../image/rejectImg.png";
 
 import { useState } from "react";
 
-export default function ApprovalForm() {
-  const [isAccept, toggleAccept] = useState(false);
-
+export default function ApprovalForm(props) {
+  const [isAccept, toggleAccept] = useState(true);
+  const { data } = props;
   return (
-    <section className="bg-gradien-to-br relative flex  h-screen w-screen items-center justify-center bg-sbgImg from-gray-700 to-gray-900   bg-cover bg-no-repeat p-5 md:bg-mbgImg lg:bg-bbgImg">
+    <section className="bg-gradien-to-br relative flex   h-screen w-screen items-center justify-center bg-sbgImg from-gray-700 to-gray-900   bg-cover bg-no-repeat p-5 md:bg-mbgImg lg:bg-bbgImg">
       <div className="relative flex h-auto w-11/12 flex-col gap-y-1 rounded-md bg-[rgba(255,255,255,0.12)] p-3 hover:shadow-sm hover:shadow-gray-300 md:w-8/12 md:p-5 lg:w-6/12">
         <div className="text-center text-3xl font-bold text-teal-300">
           Approval Form
         </div>
 
         <img
-          src={isAccept ? acceptImg : rejectImg}
+          src={data.isAccept ? acceptImg : rejectImg}
           className={` mx-auto mt-2  h-28 w-28 rounded-full ${
-            isAccept ? "bg-green-200" : "bg-red-200"
+            data.isAccept ? "bg-green-200" : "bg-red-200"
           }`}
           alt=""
         />
@@ -27,7 +27,7 @@ export default function ApprovalForm() {
             <span className="absolute right-0">:</span>
           </div>
           <h1 className=" borde w-full border-white text-[1.1rem] font-semibold text-white">
-            Jeyadheesh
+            {data.name}
           </h1>
         </div>
 
@@ -37,7 +37,7 @@ export default function ApprovalForm() {
             <span className="absolute right-0">:</span>
           </div>
           <h1 className=" borde w-full border-white text-[1.1rem] font-semibold text-white">
-            920421uad037
+            {data.rollno}
           </h1>
         </div>
 
@@ -47,7 +47,7 @@ export default function ApprovalForm() {
             <span className="absolute right-0">:</span>
           </div>
           <h1 className=" borde w-full border-white text-[1.1rem] font-semibold  text-white">
-            Computer Science Department
+            {data.department}
           </h1>
         </div>
 
@@ -59,13 +59,13 @@ export default function ApprovalForm() {
           <div>
             <div className="borde relative  my-auto block w-full border-white  text-[1.1rem] font-semibold text-teal-300">
               <h1>
-                from : <span className="text-white">12/03/201</span>
+                From : <span className="text-white">{data.dateFrom}</span>
               </h1>
             </div>
 
             <div className=" borde w-full border-white text-[1.1rem] font-semibold text-teal-300">
               <h1>
-                to : <span className="text-white">12/03/201</span>
+                to : <span className="text-white">{data.dateTo}</span>
               </h1>
             </div>
           </div>
@@ -79,13 +79,13 @@ export default function ApprovalForm() {
           <div>
             <div className="borde relative  my-auto block w-full border-white  text-[1.1rem] font-semibold text-teal-300">
               <h1>
-                from : <span className="text-white">07:00:00</span>
+                From : <span className="text-white">{data.timeFrom}</span>
               </h1>
             </div>
 
             <div className=" borde w-full border-white text-[1.1rem] font-semibold text-teal-300">
               <h1>
-                to : <span className="text-white">07:00:00</span>
+                To : <span className="text-white">{data.timeTo}</span>
               </h1>
             </div>
           </div>

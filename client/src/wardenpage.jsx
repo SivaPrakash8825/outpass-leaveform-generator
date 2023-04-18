@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import Menubar from "./components/menubar";
+import StdRequest from "./components/stdrequest";
 
 export default function Wardenpage() {
   const history = useNavigate();
@@ -28,7 +29,7 @@ export default function Wardenpage() {
     <>
       <div className=" overflow-x-hidden">
         {open ? <Menubar navopen={navopen} /> : <Wardennav navopen={navopen} />}
-        <ApprovalForm />
+        <StdRequest />
       </div>
     </>
   );

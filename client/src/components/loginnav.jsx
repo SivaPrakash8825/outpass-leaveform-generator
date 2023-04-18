@@ -5,7 +5,7 @@ import Selectperson from "..";
 export default function Navbar(props) {
   const { Selper } = props;
   const color = {
-    stle: "border-b-[4px] p-[5px] pb-[20px] pt-[20px] border-b-white",
+    stle: "text-center border-b-[4px] p-[5px] pb-[20px] pt-[20px] border-b-white",
   };
   const [person, setperson] = useState("student");
   return (

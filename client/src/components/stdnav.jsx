@@ -9,7 +9,7 @@ export default function Stdnav(props) {
     stle: "border-b-[4px] p-[5px] pb-[20px] pt-[20px] border-b-white",
   };
   const [person, setperson] = useState("outpass");
-  const { navopen } = props;
+  const { navopen, selectpage } = props;
   async function clearcookie() {
     await axios.delete("http://localhost:3030/login/logout", {
       withCredentials: true,
@@ -19,7 +19,7 @@ export default function Stdnav(props) {
 
   return (
     <>
-      <nav className="w-100%  h-[70px]  bg-[#82c7e4] flex justify-between items-center">
+      <nav className="w-100%  h-[70px]   bg-[#82c7e4] flex justify-between items-center">
         <div className="w-[40px] h-[40px] bg-no-repeat bg-cover ml-[40px] bg-logoimg"></div>
 
         <div className="mr-[40px]">
@@ -29,6 +29,7 @@ export default function Stdnav(props) {
                 to=""
                 onClick={() => {
                   setperson("outpass");
+                  selectpage("outpass");
                 }}>
                 outpass
               </Link>
@@ -38,6 +39,7 @@ export default function Stdnav(props) {
                 to=""
                 onClick={() => {
                   setperson("leaveform");
+                  selectpage("leaveform");
                 }}>
                 leaveform
               </Link>
@@ -47,6 +49,7 @@ export default function Stdnav(props) {
                 to=""
                 onClick={() => {
                   setperson("accepted");
+                  selectpage("accepted");
                 }}>
                 accepted
               </Link>
@@ -56,6 +59,7 @@ export default function Stdnav(props) {
                 to=""
                 onClick={() => {
                   setperson("rejected");
+                  selectpage("rejected");
                 }}>
                 rejected
               </Link>
