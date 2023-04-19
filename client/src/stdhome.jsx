@@ -9,10 +9,14 @@ import ApprovalForm from "./components/ApprovalForm";
 import Stdacceptedpage from "./components/stdacceptedpage";
 export default function Stdhome() {
   const history = useNavigate();
+  const [html, sethtml] = useState(<></>);
   const [open, setopen] = useState(false);
   const [page, setpage] = useState("outpass");
   function navopen(val) {
     setopen(val);
+  }
+  function selectpage(val) {
+    setpage(val);
   }
   useEffect(() => {
     async function checkcook() {
@@ -24,30 +28,32 @@ export default function Stdhome() {
 
       if (data !== "student") {
         history("/");
+      } else {
+        console.log(data);
+        let list = (
+          <>
+            <div className="w-screen h-screen  overflow-y-scroll bg-blue-200">
+              {open ? (
+                <Stdmenubar navopen={navopen} selectpage={selectpage} />
+              ) : (
+                <Stdnav navopen={navopen} selectpage={selectpage} />
+              )}
+
+              {page == "outpass" || page == "leaveform" ? (
+                <Stddetails />
+              ) : page == "accepted" ? (
+                <Stdacceptedpage req={"acceptRequest"} />
+              ) : (
+                <Stdacceptedpage req={"removeRequest"} />
+              )}
+            </div>
+          </>
+        );
+        sethtml(list);
       }
     }
     checkcook();
-  }, []);
-  function selectpage(val) {
-    setpage(val);
-  }
-  return (
-    <>
-      <div className="w-screen h-screen  overflow-y-scroll bg-blue-200">
-        {open ? (
-          <Stdmenubar navopen={navopen} selectpage={selectpage} />
-        ) : (
-          <Stdnav navopen={navopen} selectpage={selectpage} />
-        )}
+  }, [page]);
 
-        {page == "outpass" || page == "leaveform" ? (
-          <Stddetails />
-        ) : page == "accepted" ? (
-          <Stdacceptedpage req={"acceptRequest"} />
-        ) : (
-          <Stdacceptedpage req={"removeRequest"} />
-        )}
-      </div>
-    </>
-  );
+  return <>{html}</>;
 }

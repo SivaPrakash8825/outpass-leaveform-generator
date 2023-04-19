@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ApprovalForm from "./ApprovalForm";
@@ -6,16 +6,17 @@ import SmallLoader from "./SmallLoader";
 
 export default function SecurityCheck() {
   const navigate = useNavigate();
+  const [html, sethtml] = useState(<></>);
   // const [rollno, setRollno] = useState("");
   const [data, setData] = useState({});
   const [err, setErr] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [afterData, setAfterData] = useState(false);
   let val;
+
   //   let rollnoo;
   const handleChange = (e) => {
     val = e.target.value;
-    // console.log(val);
   };
 
   const handleSubmit = async () => {
@@ -71,7 +72,9 @@ export default function SecurityCheck() {
               className="mt-5 rounded-lg border-2 border-violet-700 p-3 shadow-sm shadow-black outline-none  "
             />
             <button
-              onClick={handleSubmit}
+              onClick={() => {
+                handleSubmit();
+              }}
               className="mt-5 w-[90px] rounded-[8px] border-2 border-violet-600 bg-violet-600 p-2 font-semibold text-white  transition-all duration-200 hover:scale-110 hover:bg-violet-600 hover:text-[white] hover:shadow-sm hover:shadow-black hover:transition-all hover:duration-200 active:scale-105">
               Submit
             </button>
@@ -88,6 +91,13 @@ export default function SecurityCheck() {
       </>
     );
   }
-
-  return afterData ? <ApprovalForm data={data.data} /> : <InputRollno />;
+  useEffect(() => {
+    const list = afterData ? (
+      <ApprovalForm data={[data.data]} />
+    ) : (
+      <InputRollno />
+    );
+    sethtml(list);
+  }, []);
+  return <>{html}</>;
 }

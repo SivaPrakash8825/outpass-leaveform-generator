@@ -2,10 +2,10 @@ import axios from "axios";
 import ApprovalForm from "./ApprovalForm";
 import { useEffect, useState } from "react";
 export default function Stdacceptedpage(props) {
-  let list = "";
+  let list;
+  const [html, sethtml] = useState(<></>);
   const { req } = props;
 
-  let [data, setdata] = useState([]);
   async function getEmailid() {
     const val = await axios.get("http://localhost:3030/getEmailid", {
       withCredentials: true,
@@ -17,7 +17,7 @@ export default function Stdacceptedpage(props) {
 
   async function getData(data) {
     const val = await axios.post(
-      `http://localhost:3030/${req}`,
+      `http://localhost:3030/${req}/data`,
       {
         rollno: data,
       },
@@ -32,23 +32,27 @@ export default function Stdacceptedpage(props) {
 
   useEffect(() => {
     getEmailid();
-  }, [req]);
-  let html;
+  }, []);
 
-  if (data.length <= 0) {
-    html = (
-      <div className="w-screen h-screen grid place-content-center">
-        <h1 className=" text-blue-700 font-bold text-[20px]">NOT FOUND</h1>
-      </div>
-    );
-  } else {
-    html = data.map((val, i) => {
-      return (
-        <div key={val}>
-          <ApprovalForm data={val.data} />
+  function setdata(data) {
+    console.log(data);
+    if (data.length <= 0) {
+      let val = (
+        <div className="w-screen h-screen grid place-content-center">
+          <h1 className=" text-blue-700 font-bold text-[20px]">NOT FOUND</h1>
         </div>
       );
-    });
+      sethtml(val);
+    } else {
+      let val = data.map((val, i) => {
+        return (
+          <div key={val}>
+            <ApprovalForm data={val.data} />
+          </div>
+        );
+      });
+      sethtml(val);
+    }
   }
 
   return (

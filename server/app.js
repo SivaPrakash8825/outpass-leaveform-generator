@@ -103,6 +103,19 @@ app.post("/acceptRequest", async (req, res) => {
     console.log(err.message);
   }
 });
+app.post("/acceptRequest/data", async (req, res) => {
+  try {
+    const { rollno } = req.body;
+    const data = await opDetailsModel.find({
+      rollno: rollno,
+      isAccept: true,
+    });
+    console.log(data);
+    return res.status(200).send({ data: data });
+  } catch (err) {
+    console.log(err.message);
+  }
+});
 
 //Remove the OP Request
 app.post("/removeRequest", async (req, res) => {
@@ -120,13 +133,12 @@ app.post("/removeRequest", async (req, res) => {
 });
 
 //get accepted pass
-app.post("/removeRequest", async (req, res) => {
+app.post("/removeRequest/data", async (req, res) => {
   try {
     const { rollno } = req.body;
-    const data = await opDetailsModel.findOneAndUpdate(
+    const data = await opDetailsModel.find(
       { rollno: rollno },
-      { isAccept: false },
-      { isWait: false }
+      { isAccept: false }
     );
     //console.log(data);
     return res.status(200).send({ data: data });
