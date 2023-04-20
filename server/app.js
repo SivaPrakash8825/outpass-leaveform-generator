@@ -59,7 +59,7 @@ app.post("/OpDetails", async (req, res) => {
       reason: data.reason,
       city: data.city,
     });
-    console.log(opFormDetails);
+    //  console.log(opFormDetails);
     return res.status(200).send({ data: opFormDetails, status: "no err" });
   } catch (err) {
     console.log(err.message);
@@ -70,7 +70,7 @@ app.post("/OpDetails", async (req, res) => {
 app.get("/OpDetails", async (req, res) => {
   try {
     const data = await opDetailsModel.find();
-    console.log(data);
+    //   console.log(data);
     return res.status(200).send({ data: data });
   } catch (err) {
     console.log(err.message);
@@ -82,7 +82,7 @@ app.post("/OpDetailsById", async (req, res) => {
   try {
     const { rollno } = req.body;
     const data = await opDetailsModel.findOne({ rollno: rollno });
-    console.log(data);
+    // console.log(data);
     return res.status(200).send({ data: data });
   } catch (err) {
     console.log(err.message);
@@ -97,7 +97,7 @@ app.post("/acceptRequest", async (req, res) => {
       { rollno: rollno },
       { isAccept: true }
     );
-    console.log(data);
+    //console.log(data);
     return res.status(200).send({ data: data });
   } catch (err) {
     console.log(err.message);
@@ -110,7 +110,7 @@ app.post("/acceptRequest/data", async (req, res) => {
       rollno: rollno,
       isAccept: true,
     });
-    console.log(data);
+    //console.log(data);
     return res.status(200).send({ data: data });
   } catch (err) {
     console.log(err.message);
@@ -136,10 +136,10 @@ app.post("/removeRequest", async (req, res) => {
 app.post("/removeRequest/data", async (req, res) => {
   try {
     const { rollno } = req.body;
-    const data = await opDetailsModel.find(
-      { rollno: rollno },
-      { isAccept: false }
-    );
+    const data = await opDetailsModel.find({
+      rollno: rollno,
+      isAccept: false,
+    });
     //console.log(data);
     return res.status(200).send({ data: data });
   } catch (err) {
@@ -165,7 +165,7 @@ app.post("/rejectRequest", async (req, res) => {
       { rollno: rollno },
       { rejectReason: val }
     );
-    console.log(data);
+    // console.log(data);
     return res.status(200).send({ data: data });
   } catch (err) {
     console.log(err.message);
@@ -176,7 +176,7 @@ app.post("/rejectRequest", async (req, res) => {
 app.delete("/deleteAll", async (req, res) => {
   try {
     const data = await opDetailsModel.deleteMany({ name: { $exists: true } });
-    console.log(data);
+    // console.log(data);
     return res.status(200).send({ data: data });
   } catch (err) {
     console.log(err.message);

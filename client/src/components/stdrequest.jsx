@@ -13,15 +13,17 @@ export default function StdRequest() {
   }
 
   useEffect(() => {
+    console.log("hiii");
     axios
       .get("http://localhost:3030/OpDetails")
       .then((result) => {
         setData(result.data.data);
+        //console.log("fasdf");
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [reRender]);
+  }, []);
 
   async function acceptOP(rollno) {
     try {
@@ -189,14 +191,22 @@ export default function StdRequest() {
             </div>
           </li>
         );
-      } else return;
+      } else
+        return (
+          <>
+            <div className="w-screen h-screen grid place-content-center">
+              <h1 className="w-[500px] flex justify-center items-center uppercase rounded-[12px] shadow-2xl h-[300px] bg-white text-blue-700 font-bold text-[20px]">
+                no requests were found!!
+              </h1>
+            </div>
+          </>
+        );
     });
     return <ul className="flex w-[100%] flex-col justify-center">{Lis}</ul>;
   }
 
   return (
     <>
-      {console.log(data)}
       <div className="">
         <CreateUl />
       </div>

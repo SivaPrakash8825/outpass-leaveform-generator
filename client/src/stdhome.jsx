@@ -29,7 +29,7 @@ export default function Stdhome() {
       if (data !== "student") {
         history("/");
       } else {
-        console.log(data);
+        console.log("stdhome");
         let list = (
           <>
             <div className="w-screen h-screen  overflow-y-scroll bg-blue-200">

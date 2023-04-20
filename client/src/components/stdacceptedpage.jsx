@@ -32,14 +32,16 @@ export default function Stdacceptedpage(props) {
 
   useEffect(() => {
     getEmailid();
-  }, []);
+  }, [req]);
 
   function setdata(data) {
-    console.log(data);
-    if (data.length <= 0) {
+    console.log();
+    if (data[0].data.length <= 0) {
       let val = (
         <div className="w-screen h-screen grid place-content-center">
-          <h1 className=" text-blue-700 font-bold text-[20px]">NOT FOUND</h1>
+          <h1 className="w-[500px] flex justify-center items-center uppercase rounded-[12px] shadow-2xl h-[300px] bg-white text-blue-700 font-bold text-[20px]">
+            no rejected {req} found!!
+          </h1>
         </div>
       );
       sethtml(val);

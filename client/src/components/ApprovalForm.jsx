@@ -7,9 +7,11 @@ export default function ApprovalForm(props) {
   const [html, sethtml] = useState(<></>);
   const { data } = props;
   useEffect(() => {
-    let list = data.map((data) => {
+    let list = data.map((data, i) => {
       return (
-        <section className="bg-gradien-to-br relative flex   h-screen w-screen items-center justify-center bg-sbgImg from-gray-700 to-gray-900   bg-cover bg-no-repeat p-5 md:bg-mbgImg lg:bg-bbgImg">
+        <section
+          key={i}
+          className="bg-gradien-to-br relative flex   h-screen w-screen items-center justify-center bg-sbgImg from-gray-700 to-gray-900   bg-cover bg-no-repeat p-5 md:bg-mbgImg lg:bg-bbgImg">
           <div className="relative flex h-auto w-11/12 flex-col gap-y-1 rounded-md bg-[rgba(255,255,255,0.12)] p-3 hover:shadow-sm hover:shadow-gray-300 md:w-8/12 md:p-5 lg:w-6/12">
             <div className="text-center text-3xl font-bold text-teal-300">
               Approval Form

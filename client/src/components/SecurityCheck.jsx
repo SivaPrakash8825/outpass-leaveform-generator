@@ -30,8 +30,9 @@ export default function SecurityCheck() {
           }
         );
         const orgData = resData.data;
-        console.log(orgData);
+        //console.log(orgData);
         if (orgData.data) {
+          console.log("accep");
           setData(orgData);
           setAfterData(true);
           setLoading(false);
@@ -41,9 +42,8 @@ export default function SecurityCheck() {
           setTimeout(() => {
             setErr(false);
           }, 2000);
-
-          console.log("Enter Valid Rollno");
           setAfterData(false);
+          console.log("Enter Valid Rollno");
         }
       } else {
         setLoading(false);
@@ -58,6 +58,7 @@ export default function SecurityCheck() {
   };
 
   function InputRollno() {
+    //console.log("securitycheck");
     return (
       <>
         <section className="box-border flex h-screen w-screen items-center justify-center">
@@ -98,6 +99,6 @@ export default function SecurityCheck() {
       <InputRollno />
     );
     sethtml(list);
-  }, []);
+  }, [isLoading, afterData]);
   return <>{html}</>;
 }

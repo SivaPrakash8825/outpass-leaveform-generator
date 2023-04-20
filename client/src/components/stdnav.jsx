@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CgMenuGridR } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -16,70 +16,75 @@ export default function Stdnav(props) {
     });
     history("/");
   }
+  useEffect(() => {
+    Createnav();
+  }, []);
+  function Createnav() {
+    return (
+      <>
+        <nav className="w-100%  h-[70px]   bg-[#82c7e4] flex justify-between items-center">
+          <div className="w-[40px] h-[40px] bg-no-repeat bg-cover ml-[40px] bg-logoimg"></div>
 
-  return (
-    <>
-      <nav className="w-100%  h-[70px]   bg-[#82c7e4] flex justify-between items-center">
-        <div className="w-[40px] h-[40px] bg-no-repeat bg-cover ml-[40px] bg-logoimg"></div>
-
-        <div className="mr-[40px]">
-          <ul className=" sm:flex sm:gap-[20px] items-center hidden">
-            <li className={person == "outpass" ? color.stle : ""}>
-              <Link
-                to=""
+          <div className="mr-[40px]">
+            <ul className=" sm:flex sm:gap-[20px] items-center hidden">
+              <li className={person == "outpass" ? color.stle : ""}>
+                <Link
+                  to=""
+                  onClick={() => {
+                    setperson("outpass");
+                    selectpage("outpass");
+                  }}>
+                  outpass
+                </Link>
+              </li>
+              <li className={person == "leaveform" ? color.stle : ""}>
+                <Link
+                  to=""
+                  onClick={() => {
+                    setperson("leaveform");
+                    selectpage("leaveform");
+                  }}>
+                  leaveform
+                </Link>
+              </li>
+              <li className={person == "accepted" ? color.stle : ""}>
+                <Link
+                  to=""
+                  onClick={() => {
+                    setperson("accepted");
+                    selectpage("accepted");
+                  }}>
+                  accepted
+                </Link>
+              </li>
+              <li className={person == "rejected" ? color.stle : ""}>
+                <Link
+                  to=""
+                  onClick={() => {
+                    setperson("rejected");
+                    selectpage("rejected");
+                  }}>
+                  rejected
+                </Link>
+              </li>
+              <li
+                className="cursor-pointer text-blue-600"
                 onClick={() => {
-                  setperson("outpass");
-                  selectpage("outpass");
+                  clearcookie();
                 }}>
-                outpass
-              </Link>
-            </li>
-            <li className={person == "leaveform" ? color.stle : ""}>
-              <Link
-                to=""
-                onClick={() => {
-                  setperson("leaveform");
-                  selectpage("leaveform");
-                }}>
-                leaveform
-              </Link>
-            </li>
-            <li className={person == "accepted" ? color.stle : ""}>
-              <Link
-                to=""
-                onClick={() => {
-                  setperson("accepted");
-                  selectpage("accepted");
-                }}>
-                accepted
-              </Link>
-            </li>
-            <li className={person == "rejected" ? color.stle : ""}>
-              <Link
-                to=""
-                onClick={() => {
-                  setperson("rejected");
-                  selectpage("rejected");
-                }}>
-                rejected
-              </Link>
-            </li>
-            <li
-              className="cursor-pointer text-blue-600"
-              onClick={() => {
-                clearcookie();
-              }}>
-              logout
-            </li>
-          </ul>
-        </div>
-        <CgMenuGridR
-          className=" text-[30px] mr-[30px]  sm:hidden"
-          onClick={() => {
-            navopen(true);
-          }}
-        />
-      </nav>
-    </>
-  );
+                logout
+              </li>
+            </ul>
+          </div>
+          <CgMenuGridR
+            className=" text-[30px] mr-[30px]  sm:hidden"
+            onClick={() => {
+              navopen(true);
+            }}
+          />
+        </nav>
+      </>
+    );
+  }
+  return <Createnav />;
 }
