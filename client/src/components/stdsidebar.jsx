@@ -12,6 +12,7 @@ export default function Stdmenubar(props) {
     });
     history("/");
   }
+
   const slide = (
     <div className=" w-[100%] h-[100%]  fixed">
       <div className="w-[250px] h-[100%]  absolute right-0 bg-white opacity-[1] z-10">

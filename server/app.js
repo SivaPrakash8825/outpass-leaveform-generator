@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 const opDetailsModel = require("./Schema/OutpassDetails");
+const checkreq = require("./Schema/ApprovalStatus");
 
 app.use(
   cors({
@@ -45,6 +46,8 @@ app.use("/login", require("../server/routers/auth"));
 app.post("/OpDetails", async (req, res) => {
   try {
     const { data } = req.body;
+    const decode = jwt.verify(req.cookies.siva, "1234");
+
     const opFormDetails = await opDetailsModel.create({
       name: data.name,
       department: data.department,
@@ -59,8 +62,19 @@ app.post("/OpDetails", async (req, res) => {
       reason: data.reason,
       city: data.city,
     });
-    //  console.log(opFormDetails);
-    return res.status(200).send({ data: opFormDetails, status: "no err" });
+
+    if (opFormDetails) {
+      try {
+        const val = await checkreq.create({ rollNo: decode.email });
+        if (val) {
+          return res
+            .status(200)
+            .send({ data: opFormDetails, status: "no err" });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
   } catch (err) {
     console.log(err.message);
   }
@@ -89,6 +103,18 @@ app.post("/OpDetailsById", async (req, res) => {
   }
 });
 
+//check req status for the particular student
+app.post("/checkreqStatus", async (req, res) => {
+  const { rollno } = req.body;
+  const data = await checkreq.findOne({
+    rollNo: rollno,
+  });
+  if (data == null) res.send("not");
+  else {
+    res.send("exists");
+  }
+});
+
 //Accept the OP Request
 app.post("/acceptRequest", async (req, res) => {
   try {
@@ -103,12 +129,11 @@ app.post("/acceptRequest", async (req, res) => {
     console.log(err.message);
   }
 });
-app.post("/acceptRequest/data", async (req, res) => {
+app.post("/info/data", async (req, res) => {
   try {
     const { rollno } = req.body;
     const data = await opDetailsModel.find({
       rollno: rollno,
-      isAccept: true,
     });
     //console.log(data);
     return res.status(200).send({ data: data });
@@ -144,6 +169,22 @@ app.post("/removeRequest/data", async (req, res) => {
     return res.status(200).send({ data: data });
   } catch (err) {
     console.log(err.message);
+  }
+});
+
+//delete std req
+app.post("/deleteReq", async (req, res) => {
+  const id = req.body.id;
+  console.log(id);
+  try {
+    const decode = jwt.verify(req.cookies.siva, "1234");
+    const val = await opDetailsModel.findByIdAndDelete({ _id: id });
+    if (val) {
+      const ele = await checkreq.findOneAndDelete({ rollNo: decode.email });
+      return res.status(200).send({ msg: "removed" });
+    }
+  } catch (e) {
+    return res.status(400).send({ msg: e.message });
   }
 });
 

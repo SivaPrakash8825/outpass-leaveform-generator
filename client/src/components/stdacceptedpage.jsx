@@ -1,6 +1,7 @@
 import axios from "axios";
-import ApprovalForm from "./ApprovalForm";
+
 import { useEffect, useState } from "react";
+import Stdrandominfo from "./std-randominfo";
 export default function Stdacceptedpage(props) {
   let list;
   const [html, sethtml] = useState(<></>);
@@ -11,13 +12,13 @@ export default function Stdacceptedpage(props) {
       withCredentials: true,
     });
     const data = val.data;
-    console.log(data);
+    //console.log(data);
     getData(data);
   }
 
   async function getData(data) {
     const val = await axios.post(
-      `http://localhost:3030/${req}/data`,
+      `http://localhost:3030/info/data`,
       {
         rollno: data,
       },
@@ -49,7 +50,7 @@ export default function Stdacceptedpage(props) {
       let val = data.map((val, i) => {
         return (
           <div key={val}>
-            <ApprovalForm data={val.data} />
+            <Stdrandominfo data={val} />
           </div>
         );
       });

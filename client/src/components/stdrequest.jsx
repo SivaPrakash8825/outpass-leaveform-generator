@@ -9,7 +9,7 @@ export default function StdRequest() {
   async function doRender() {
     if (reRender) await setRender(false);
     else await setRender(true);
-    console.log(reRender);
+    //console.log(reRender);
   }
 
   useEffect(() => {
@@ -33,7 +33,8 @@ export default function StdRequest() {
           rollno: rollno,
         });
         removeRequest(rollno);
-        console.log(data);
+        setData([data]);
+        //console.log(data);
       } else return;
     } catch (error) {
       console.log(error.message);
@@ -55,7 +56,7 @@ export default function StdRequest() {
         });
         removeRequest(rollno);
         doRender();
-        console.log(data);
+        //console.log(data);
       }
     } catch (error) {
       console.log(error.message);

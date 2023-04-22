@@ -5,8 +5,8 @@ import Stdmenubar from "./components/stdsidebar";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ApprovalForm from "./components/ApprovalForm";
 import Stdacceptedpage from "./components/stdacceptedpage";
+
 export default function Stdhome() {
   const history = useNavigate();
   const [html, sethtml] = useState(<></>);
@@ -29,7 +29,6 @@ export default function Stdhome() {
       if (data !== "student") {
         history("/");
       } else {
-        console.log("stdhome");
         let list = (
           <>
             <div className="w-screen h-screen  overflow-y-scroll bg-blue-200">
@@ -41,10 +40,10 @@ export default function Stdhome() {
 
               {page == "outpass" || page == "leaveform" ? (
                 <Stddetails />
-              ) : page == "accepted" ? (
-                <Stdacceptedpage req={"acceptRequest"} />
+              ) : page == "status" ? (
+                <Stdacceptedpage />
               ) : (
-                <Stdacceptedpage req={"removeRequest"} />
+                ""
               )}
             </div>
           </>
@@ -53,7 +52,7 @@ export default function Stdhome() {
       }
     }
     checkcook();
-  }, [page]);
+  }, [page, open]);
 
   return <>{html}</>;
 }

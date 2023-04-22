@@ -10,16 +10,16 @@ export default function Stdnav(props) {
   };
   const [person, setperson] = useState("outpass");
   const { navopen, selectpage } = props;
+
   async function clearcookie() {
     await axios.delete("http://localhost:3030/login/logout", {
       withCredentials: true,
     });
     history("/");
   }
-  useEffect(() => {
-    Createnav();
-  }, []);
+
   function Createnav() {
+    // const [navo, setnavo] = useState(false);
     return (
       <>
         <nav className="w-100%  h-[70px]   bg-[#82c7e4] flex justify-between items-center">
@@ -47,26 +47,17 @@ export default function Stdnav(props) {
                   leaveform
                 </Link>
               </li>
-              <li className={person == "accepted" ? color.stle : ""}>
+              <li className={person == "status" ? color.stle : ""}>
                 <Link
                   to=""
                   onClick={() => {
-                    setperson("accepted");
-                    selectpage("accepted");
+                    setperson("status");
+                    selectpage("status");
                   }}>
-                  accepted
+                  status
                 </Link>
               </li>
-              <li className={person == "rejected" ? color.stle : ""}>
-                <Link
-                  to=""
-                  onClick={() => {
-                    setperson("rejected");
-                    selectpage("rejected");
-                  }}>
-                  rejected
-                </Link>
-              </li>
+
               <li
                 className="cursor-pointer text-blue-600"
                 onClick={() => {
@@ -80,6 +71,7 @@ export default function Stdnav(props) {
             className=" text-[30px] mr-[30px]  sm:hidden"
             onClick={() => {
               navopen(true);
+              //setnavo(true);
             }}
           />
         </nav>

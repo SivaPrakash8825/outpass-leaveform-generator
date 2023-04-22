@@ -3,82 +3,113 @@ import axios from "axios";
 import { useRef } from "react";
 
 export default function Stddetails(props) {
-  const intial = useRef("");
-  let initialData = {
-    name: "",
-    city: "",
-    rollno: "",
-    department: "",
-    year: "",
-    dateFrom: "",
-    dateTo: "",
-    timeFrom: "",
-    timeTo: "",
-    phNo: "",
-    parentPhNo: "",
-    reason: "",
-  };
+  //console.log("fsadf");
 
-  const [data, setData] = useState(initialData);
-  const [err, setError] = useState(false);
-  const [noerr, setNoError] = useState(false);
+  // useEffect(() => {
 
-  function handleChange(e) {
-    //console.log(data.name);
-    setData({ ...data, [e.target.name]: e.target.value });
-  }
+  //   //console.log(datael);
+  // }, []);
 
-  function checkValue() {
-    for (let key in data) {
-      if (!data[key]) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  function tConvert(time) {
-    time = time
-      .toString()
-      .match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
-
-    if (time.length > 1) {
-      time = time.slice(1);
-      time[5] = +time[0] < 12 ? "AM" : "PM";
-      time[0] = +time[0] % 12 || 12;
-    }
-    return time.join("");
-  }
-
-  const handleSubmit = async () => {
-    try {
-      const verify = checkValue();
-      if (verify) {
-        data.timeFrom = tConvert(data.timeFrom);
-        data.timeTo = tConvert(data.timeTo);
-        const resData = await axios.post("http://localhost:3030/OpDetails", {
-          data: data,
-        });
-        setNoError(true);
-        console.log(resData.data);
-      } else {
-        setError(true);
-      }
-      setTimeout(() => {
-        setError(false);
-        setNoError(false);
-      }, 3000);
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-
-  console.log("fsadf");
   // useEffect(() => {
   //   Createform();
-  // }, [setNoError]);
+  // }, [datael]);
 
   function Createform() {
+    const [datael, setdata] = useState(false);
+    axios
+      .get("http://localhost:3030/getEmailid", {
+        withCredentials: true,
+      })
+      .then((data) => {
+        // console.log(data);
+        axios
+          .post("http://localhost:3030/checkreqStatus", {
+            rollno: data.data,
+          })
+          .then((data) => {
+            if (data.data == "exists") {
+              setdata(true);
+              // console.log(data.data);
+            } else {
+              setdata(false);
+            }
+          });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    let initialData = {
+      name: "",
+      city: "",
+      rollno: "",
+      department: "",
+      year: "",
+      dateFrom: "",
+      dateTo: "",
+      timeFrom: "",
+      timeTo: "",
+      phNo: "",
+      parentPhNo: "",
+      reason: "",
+    };
+    const intial = useRef("");
+
+    const [err, setError] = useState(false);
+    const [noerr, setNoError] = useState(false);
+
+    function checkValue() {
+      for (let key in data) {
+        if (!data[key]) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function tConvert(time) {
+      time = time
+        .toString()
+        .match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+      if (time.length > 1) {
+        time = time.slice(1);
+        time[5] = +time[0] < 12 ? "AM" : "PM";
+        time[0] = +time[0] % 12 || 12;
+      }
+      return time.join("");
+    }
+    const handleSubmit = async () => {
+      //console.log("siva");
+      try {
+        const verify = checkValue();
+        if (verify) {
+          data.timeFrom = tConvert(data.timeFrom);
+          data.timeTo = tConvert(data.timeTo);
+          const resData = await axios.post(
+            "http://localhost:3030/OpDetails",
+            {
+              data: data,
+            },
+            { withCredentials: true }
+          );
+          setNoError(true);
+          //console.log(resData.data);
+        } else {
+          setError(true);
+        }
+        setTimeout(() => {
+          setError(false);
+          setNoError(false);
+        }, 3000);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    const [data, setData] = useState(initialData);
+    function handleChange(e) {
+      //console.log(data.name);
+      setData({ ...data, [e.target.name]: e.target.value });
+    }
     return (
       <div className="grid min-h-[calc(100%)] w-[100%] place-content-center">
         <div className="mx-auto mb-10 mt-8 h-auto w-[90%] rounded-[12px] bg-[rgba(143,163,218,0.53)] px-[10px] py-[20px] shadow-2xl md:w-[600px] md:px-[20px]">
@@ -92,7 +123,7 @@ export default function Stddetails(props) {
                 </label>
                 <br />
                 <input
-                  ref={intial}
+                  //ref={intial}
                   type="text"
                   className=" w-full rounded-lg p-0.5 px-2  "
                   placeholder=""
@@ -315,7 +346,11 @@ export default function Stddetails(props) {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="w-[90px] rounded-[8px] border-2 border-[green] bg-[green] font-semibold text-white transition-all  duration-200 hover:scale-110 hover:bg-[green] hover:text-[white] hover:shadow-sm hover:shadow-black hover:transition-all hover:duration-200 active:scale-105">
+                className={
+                  datael
+                    ? "w-[90px] rounded-[8px] border-2 border-green-100 pointer-events-none bg-green-300 font-semibold text-white "
+                    : "w-[90px] rounded-[8px] border-2 border-[green] bg-[green] font-semibold text-white transition-all  duration-200 hover:scale-110 hover:bg-[green] hover:text-[white] hover:shadow-sm hover:shadow-black hover:transition-all hover:duration-200 active:scale-105"
+                }>
                 Submit
               </button>
             </div>
