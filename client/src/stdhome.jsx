@@ -41,7 +41,7 @@ export default function Stdhome() {
               {page == "outpass" || page == "leaveform" ? (
                 <Stddetails />
               ) : page == "status" ? (
-                <Stdacceptedpage />
+                <Stdacceptedpage req={page} />
               ) : (
                 ""
               )}

@@ -28,6 +28,8 @@ export default function Stddetails(props) {
           })
           .then((data) => {
             if (data.data == "exists") {
+              //console.log(data.data);
+
               setdata(true);
               // console.log(data.data);
             } else {

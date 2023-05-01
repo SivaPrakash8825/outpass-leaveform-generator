@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 export default function Stdrandominfo({ data }) {
   function Infobox() {
+    //console.log("siuva");
     const [list, setlist] = useState(data);
     async function deletereq(id) {
       console.log(data);

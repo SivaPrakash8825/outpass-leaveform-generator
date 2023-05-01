@@ -19,6 +19,7 @@ const OutpassSchema = new mongoose.Schema({
     type: Date,
     default: () => Date.now(),
   },
+  qrurl: String,
   isAccept: {
     type: Boolean,
     default: false,

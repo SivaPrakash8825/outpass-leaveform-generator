@@ -12,7 +12,7 @@ export default function Stdacceptedpage(props) {
       withCredentials: true,
     });
     const data = val.data;
-    //console.log(data);
+    // console.log(data);
     getData(data);
   }
 
@@ -33,10 +33,10 @@ export default function Stdacceptedpage(props) {
 
   useEffect(() => {
     getEmailid();
-  }, [req]);
+  }, []);
 
   function setdata(data) {
-    console.log();
+    console.log(data);
     if (data[0].data.length <= 0) {
       let val = (
         <div className="w-screen h-screen grid place-content-center">

@@ -46,6 +46,7 @@ app.use("/login", require("../server/routers/auth"));
 app.post("/OpDetails", async (req, res) => {
   try {
     const { data } = req.body;
+    //console.log(qrurl);
     const decode = jwt.verify(req.cookies.siva, "1234");
 
     const opFormDetails = await opDetailsModel.create({
@@ -58,6 +59,7 @@ app.post("/OpDetails", async (req, res) => {
       timeFrom: data.timeFrom,
       timeTo: data.timeTo,
       phNo: data.phNo,
+      qrurl: data.qrurl,
       parentPhNo: data.parentPhNo,
       reason: data.reason,
       city: data.city,
@@ -111,6 +113,7 @@ app.post("/checkreqStatus", async (req, res) => {
   });
   if (data == null) res.send("not");
   else {
+    // console.log(data);
     res.send("exists");
   }
 });
@@ -132,10 +135,11 @@ app.post("/acceptRequest", async (req, res) => {
 app.post("/info/data", async (req, res) => {
   try {
     const { rollno } = req.body;
+    //console.log(rollno);
     const data = await opDetailsModel.find({
       rollno: rollno,
     });
-    //console.log(data);
+    console.log(data);
     return res.status(200).send({ data: data });
   } catch (err) {
     console.log(err.message);
@@ -192,6 +196,7 @@ app.post("/deleteReq", async (req, res) => {
 app.get("/getEmailid", (req, res) => {
   try {
     const decode = jwt.verify(req.cookies.siva, "1234");
+    console.log(decode);
     res.status(200).send(decode.email);
   } catch (e) {
     res.status(400).send(e.message);
